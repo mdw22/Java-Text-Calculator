@@ -46,10 +46,10 @@ public class App {
                 throw new Exception();
             }
 
+            int j = 1;
             for (int i = 0; i < num_equations; ++i) {
                 String operator = "";
                 int x_value = 0, y_value = 0, z_value = 0;
-                int j = 1;
                 while (char_array[j] == ' ' || char_array[j] == ',') {
                     ++j;
                 }
@@ -96,14 +96,14 @@ public class App {
                 while (char_array[j] == ' ' || char_array[j] == ',') {
                     ++j;
                 }
-                System.out.println("X value passed");
+                //System.out.println("X value passed");
                 // Operator validation
                 operator = Character.toString(char_array[j]);
                 ++j;
                 if (!operatorValidator(operator)) {
                     throw new Exception();
                 }
-                System.out.println("Op value passed");
+                //System.out.println("Op value passed");
                 while (char_array[j] == ' ' || char_array[j] == ',') {
                     ++j;
                 }
@@ -111,8 +111,13 @@ public class App {
                 // Y value initialized here
                 String ytempInt = "";
                 char ychar0 = char_array[j];
-                // At least a two decimal int
-                if (char_array[j + 1] != ' ') {
+                // Check if character is last char of input
+                if (char_array.length - 1 == j) {
+                    ytempInt += ychar0;
+                    ++j;
+                }
+                // If At least a two decimal int
+                else if (char_array[j + 1] != ' ') {
                     char char1 = char_array[j + 1];
                     // At least a 3 decimal int
                     if (char_array[j + 2] != ' ') {
@@ -139,12 +144,13 @@ public class App {
                         j += 2;
                     }
                 }
+                // Not end of char stream, single digit number
                 else {
                     ytempInt += ychar0;
                     ++j;
                 }
                 y_value = Integer.parseInt(ytempInt);
-                System.out.println("Y value passed");
+                //System.out.println("Y value passed");
                 // Z value calculated here
                 z_value = calculate(x_value, y_value, operator);
                 //Print answer to console
