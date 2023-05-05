@@ -53,98 +53,45 @@ public class App {
                 while (char_array[j] == ' ' || char_array[j] == ',') {
                     ++j;
                 }
-
                 String xtempInt = "";
                 char xchar0 = char_array[j];
+                xtempInt += xchar0;
+                ++j;
                 // At least a two decimal int
-                if (char_array[j + 1] != ' ') {
-                    char char1 = char_array[j + 1];
-                    // At least a 3 decimal int
-                    if (char_array[j + 2] != ' ') {
-                        char char2 = char_array[j + 2];
-                        // Max 4 decimal int
-                        if (char_array[j + 3] != ' ') {
-                            char char3 = char_array[j + 3];
-                            xtempInt += xchar0;
-                            xtempInt += char1;
-                            xtempInt += char2;
-                            xtempInt += char3;
-                            j += 4;
-                        }
-                        else {
-                            xtempInt += xchar0;
-                            xtempInt += char1;
-                            xtempInt += char2;
-                            j += 3;
-                        }
+                if (char_array[j] != ' ' && char_array[j] != ',') {
+                    while (char_array[j] != ' ' && char_array[j] != ',') {
+                        xtempInt += char_array[j];
+                        ++j;
                     }
-                    else {
-                        xtempInt += xchar0;
-                        xtempInt += char1;
-                        j += 2;
-                    }
-                }
-                else {
-                    xtempInt += xchar0;
-                    ++j;
-                }
+                }  
                 x_value = Float.parseFloat(xtempInt);
-
+                // Move on to operator
                 while (char_array[j] == ' ' || char_array[j] == ',') {
                     ++j;
                 }
-                //System.out.println("X value passed");
                 // Operator validation
                 operator = Character.toString(char_array[j]);
                 ++j;
                 if (!operatorValidator(operator)) {
                     throw new Exception();
                 }
-                //System.out.println("Op value passed");
+              
+                // Move on to y value
                 while (char_array[j] == ' ' || char_array[j] == ',') {
                     ++j;
                 }
-
                 // Y value initialized here
                 String ytempInt = "";
                 char ychar0 = char_array[j];
+                ytempInt += ychar0;
                 // Check if character is last char of input
-                if (char_array.length - 1 == j) {
-                    ytempInt += ychar0;
+                if (char_array.length - 1 > j) {
                     ++j;
-                }
-                // If At least a two decimal int
-                else if (char_array[j + 1] != ' ') {
-                    char char1 = char_array[j + 1];
-                    // At least a 3 decimal int
-                    if (char_array[j + 2] != ' ') {
-                        char char2 = char_array[j + 2];
-                        // Max 4 decimal int
-                        if (char_array[j + 3] != ' ') {
-                            char char3 = char_array[j + 3];
-                            ytempInt += ychar0;
-                            ytempInt += char1;
-                            ytempInt += char2;
-                            ytempInt += char3;
-                            j += 4;
-                        }
-                        else {
-                            ytempInt += ychar0;
-                            ytempInt += char1;
-                            ytempInt += char2;
-                            j += 3;
-                        }
+                    // Add characters to string
+                    while (char_array.length > j && char_array[j] != ' ' && char_array[j] != ',') {
+                        ytempInt += char_array[j];
+                        ++j;
                     }
-                    else {
-                        ytempInt += ychar0;
-                        ytempInt += char1;
-                        j += 2;
-                    }
-                }
-                // Not end of char stream, single digit number
-                else {
-                    ytempInt += ychar0;
-                    ++j;
                 }
                 y_value = Float.parseFloat(ytempInt);
                 //System.out.println("Y value passed");
@@ -156,6 +103,7 @@ public class App {
         } catch (Exception e) {
             // TODO: handle exception
             System.out.println("Invalid format. Please follow the format guidelines.");
+            e.printStackTrace();
             System.exit(0);
         }   
     }
