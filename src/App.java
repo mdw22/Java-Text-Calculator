@@ -16,7 +16,7 @@ public class App {
         return false;
     }
 
-    private static int calculate(int x_value, int y_value, String operator) {
+    private static float calculate(float x_value, float y_value, String operator) {
         if (operator.equalsIgnoreCase("*")) {
             return x_value * y_value;
         }
@@ -49,16 +49,13 @@ public class App {
             int j = 1;
             for (int i = 0; i < num_equations; ++i) {
                 String operator = "";
-                int x_value = 0, y_value = 0, z_value = 0;
+                float x_value = 0, y_value = 0, z_value = 0;
                 while (char_array[j] == ' ' || char_array[j] == ',') {
                     ++j;
                 }
 
                 String xtempInt = "";
                 char xchar0 = char_array[j];
-                if (j == char_array.length) {
-                    
-                }
                 // At least a two decimal int
                 if (char_array[j + 1] != ' ') {
                     char char1 = char_array[j + 1];
@@ -91,7 +88,7 @@ public class App {
                     xtempInt += xchar0;
                     ++j;
                 }
-                x_value = Integer.parseInt(xtempInt);
+                x_value = Float.parseFloat(xtempInt);
 
                 while (char_array[j] == ' ' || char_array[j] == ',') {
                     ++j;
@@ -149,7 +146,7 @@ public class App {
                     ytempInt += ychar0;
                     ++j;
                 }
-                y_value = Integer.parseInt(ytempInt);
+                y_value = Float.parseFloat(ytempInt);
                 //System.out.println("Y value passed");
                 // Z value calculated here
                 z_value = calculate(x_value, y_value, operator);
